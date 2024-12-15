@@ -1,0 +1,4 @@
+../Core/Src/functions.c:15:6:Update_Auxiliary_System	320	static
+../Core/Src/functions.c:106:6:Send_Auxiliary_State_CAN	40	static
+../Core/Src/functions.c:132:6:Get_ADC_Value	24	static
+../Core/Src/functions.c:169:6:Update_Offline_Mode	16	static
