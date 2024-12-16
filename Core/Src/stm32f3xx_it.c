@@ -79,11 +79,13 @@ Auxiliary *aux_offline = &offline;
 bool toggle_sign_left, toggle_sign_right = OFF;
 bool aux_offline_switch = OFF;
 //for counting up to 500ms = 10 to blink
-uint8_t sign_left_500ms, sign_right_500ms = 0;
+uint8_t sign_left_500ms = 0, sign_right_500ms = 0;
 //adc value
 uint16_t adc_value = 0;
+
 //Dashboard Activity variable
 uint8_t dashboard_activity = 0;
+
 //Activity Check for Auxiliary
 uint8_t aux_activity[1];
 
@@ -245,15 +247,19 @@ void USB_LP_CAN_RX0_IRQHandler(void)
 	CAN_RxHeaderTypeDef RxHeader;
 	uint8_t RxData[1];
 
-  /* USER CODE END USB_LP_CAN_RX0_IRQn 0 */
-  HAL_CAN_IRQHandler(&hcan);
-  /* USER CODE BEGIN USB_LP_CAN_RX0_IRQn 1 */
+	  /* USER CODE END USB_LP_CAN_RX0_IRQn 0 */
+	  HAL_CAN_IRQHandler(&hcan);
+	  /* USER CODE BEGIN USB_LP_CAN_RX0_IRQn 1 */
 
 	//get message from CAN, sent by DASHBOARD
 	HAL_CAN_GetRxMessage(&hcan, CAN_RX_FIFO0, &RxHeader, RxData);
 
 	//update the auxiliaries with the frame from DASHBOARD
-	aux_pointer->state = RxData[0];
+	if(aux_offline_switch == OFF){
+		aux_pointer->state = RxData[0];
+		dashboard_activity = 0;
+	}
+
 
   /* USER CODE END USB_LP_CAN_RX0_IRQn 1 */
 }
@@ -261,6 +267,8 @@ void USB_LP_CAN_RX0_IRQHandler(void)
 /**
   * @brief This function handles TIM2 global interrupt.
   */
+
+//56ms
 void TIM2_IRQHandler(void)
 {
   /* USER CODE BEGIN TIM2_IRQn 0 */
@@ -287,6 +295,8 @@ void TIM2_IRQHandler(void)
 /**
   * @brief This function handles TIM3 global interrupt.
   */
+
+//76ms
 void TIM3_IRQHandler(void)
 {
   /* USER CODE BEGIN TIM3_IRQn 0 */

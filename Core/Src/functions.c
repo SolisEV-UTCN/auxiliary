@@ -16,33 +16,6 @@ void Update_Auxiliary_System(Auxiliary *aux_pointer, bool toggle_sign_left,
 		bool toggle_sign_right, uint8_t sign_left_500ms,
 		uint8_t sign_right_500ms) {
 
-
-	  char buffer[256]; // Adjust size as necessary
-	    sprintf(buffer,
-	            "Offline Mode Pin States:\n"
-	            "Brake: %s\n"
-	            "Camera: %s\n"
-	            "Fan: %s\n"
-	            "Hazard Lights: %s\n"
-	            "Horn: %s\n"
-	            "Sign Left: %s\n"
-	            "Sign Right: %s\n"
-	            "Lights: %s\n",
-	            aux_pointer->brake ? "ON" : "OFF",
-	            		aux_pointer->camera ? "ON" : "OFF",
-	            				aux_pointer->fan ? "ON" : "OFF",
-	            						aux_pointer->hazard_lights ? "ON" : "OFF",
-	            		aux_pointer->horn ? "ON" : "OFF",
-	            				aux_pointer->sign_left ? "ON" : "OFF",
-	            						aux_pointer->sign_right ? "ON" : "OFF",
-	            		aux_pointer->lights ? "ON" : "OFF");
-
-	    // Send the buffer to a debug output (e.g., UART, serial monitor, or console)
-	    printf("%s", buffer); // Replace with your HAL_UART_Transmit if printf isn't available
-
-
-
-
 	/*
 	 * Set all pins with the negated values from auxiliary structure
 	 * Outputs are negated -> transistors type P
@@ -108,19 +81,15 @@ void Send_Auxiliary_State_CAN(CAN_HandleTypeDef hcan, uint8_t *Activity_Check) {
 	uint32_t txMailbox;
 
 	// Prepare the CAN header
-	txHeader.StdId = 0x123;        // Replace with appropriate CAN ID
+	txHeader.StdId = AUXILIARY_ID;      // Replace with appropriate CAN ID
 	txHeader.ExtId = 0;
 	txHeader.IDE = CAN_ID_STD;
 	txHeader.RTR = CAN_RTR_DATA;
-	txHeader.DLC = 8;             // Length of data (up to 8 bytes)
+	txHeader.DLC = 1;             // Length of data (up to 8 bytes)
 	txHeader.TransmitGlobalTime = DISABLE;
 
 	// Transmit the CAN message
-	if (HAL_CAN_AddTxMessage(&hcan, &txHeader, Activity_Check, &txMailbox)
-			!= HAL_OK) {
-		// Handle transmission error
-		Error_Handler();
-	}
+	HAL_CAN_AddTxMessage(&hcan, &txHeader, Activity_Check, &txMailbox);
 }
 
 /*

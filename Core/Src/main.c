@@ -1,4 +1,4 @@
-/* USER CODE BEGIN Header */
+	/* USER CODE BEGIN Header */
 /**
   ******************************************************************************
   * @file           : main.c
@@ -102,14 +102,16 @@ int main(void)
   MX_CAN_Init();
   MX_TIM2_Init();
   MX_TIM3_Init();
+
   /* USER CODE BEGIN 2 */
-  HAL_Delay(2000); //waiting for the other system configurations if needed
+
+  	HAL_Delay(2000); //waiting for the other system configurations if needed
 
   	HAL_CAN_Start(&hcan);
   	HAL_TIM_Base_Start_IT(&htim2); //timer 2 -> connection with dashboard
   	HAL_TIM_Base_Start_IT(&htim3); //timer 3 -> connection with auxiliary systems
 
-  	HAL_Delay(100);
+  	HAL_Delay(90);
 
   	HAL_CAN_ActivateNotification(&hcan, CAN_IT_RX_FIFO0_MSG_PENDING); //waiting message on FIFO0
 
@@ -272,7 +274,7 @@ static void MX_CAN_Init(void)
 	filterConfig.FilterActivation = CAN_FILTER_ENABLE;
 	filterConfig.FilterBank = 10;
 	filterConfig.FilterFIFOAssignment = CAN_RX_FIFO0;
-	filterConfig.FilterIdHigh = DASHBOARD_ID << 5; //
+	filterConfig.FilterIdHigh = DASHBOARD_ID << 5;
 	filterConfig.FilterIdLow = 0x0000;
 	filterConfig.FilterMaskIdHigh = DASHBOARD_ID << 5;
 	filterConfig.FilterMaskIdLow = 0x0000;

@@ -52,6 +52,12 @@ default.size.stdout \
 OBJDUMP_LIST += \
 SolisEV4_2_Auxiliare_CBT.list \
 
+OBJCOPY_HEX += \
+SolisEV4_2_Auxiliare_CBT.hex \
+
+OBJCOPY_BIN += \
+SolisEV4_2_Auxiliare_CBT.bin \
+
 
 # All Target
 all: main-build
@@ -75,12 +81,22 @@ SolisEV4_2_Auxiliare_CBT.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_T
 	@echo 'Finished building: $@'
 	@echo ' '
 
+SolisEV4_2_Auxiliare_CBT.hex: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objcopy  -O ihex $(EXECUTABLES) "SolisEV4_2_Auxiliare_CBT.hex"
+	@echo 'Finished building: $@'
+	@echo ' '
+
+SolisEV4_2_Auxiliare_CBT.bin: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "SolisEV4_2_Auxiliare_CBT.bin"
+	@echo 'Finished building: $@'
+	@echo ' '
+
 # Other Targets
 clean:
-	-$(RM) SolisEV4_2_Auxiliare_CBT.elf SolisEV4_2_Auxiliare_CBT.list SolisEV4_2_Auxiliare_CBT.map default.size.stdout
+	-$(RM) SolisEV4_2_Auxiliare_CBT.bin SolisEV4_2_Auxiliare_CBT.elf SolisEV4_2_Auxiliare_CBT.hex SolisEV4_2_Auxiliare_CBT.list SolisEV4_2_Auxiliare_CBT.map default.size.stdout
 	-@echo ' '
 
-secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
+secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_HEX) $(OBJCOPY_BIN)
 
 fail-specified-linker-script-missing:
 	@echo 'Error: Cannot find the specified linker script. Check the linker settings in the build configuration.'
