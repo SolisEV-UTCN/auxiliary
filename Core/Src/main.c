@@ -1,4 +1,4 @@
-	/* USER CODE BEGIN Header */
+/* USER CODE BEGIN Header */
 /**
   ******************************************************************************
   * @file           : main.c
@@ -102,7 +102,6 @@ int main(void)
   MX_CAN_Init();
   MX_TIM2_Init();
   MX_TIM3_Init();
-
   /* USER CODE BEGIN 2 */
 
   	HAL_Delay(2000); //waiting for the other system configurations if needed
@@ -395,23 +394,23 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(FAN_GPIO_Port, FAN_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, CAMERA_Pin|SAFE_STATE_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, SIGN_LEFT_Pin|SIGN_RIGHT_Pin|BRAKE_Pin|BACK_LIGHT_Pin
-                          |FRONT_LIGHT_Pin|CAMERA_Pin|HORN_Pin, GPIO_PIN_RESET);
+                          |FRONT_LIGHT_Pin|HORN_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin : FAN_Pin */
-  GPIO_InitStruct.Pin = FAN_Pin;
+  /*Configure GPIO pins : CAMERA_Pin SAFE_STATE_Pin */
+  GPIO_InitStruct.Pin = CAMERA_Pin|SAFE_STATE_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(FAN_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pins : SIGN_LEFT_Pin SIGN_RIGHT_Pin BRAKE_Pin BACK_LIGHT_Pin
-                           FRONT_LIGHT_Pin CAMERA_Pin HORN_Pin */
+                           FRONT_LIGHT_Pin HORN_Pin */
   GPIO_InitStruct.Pin = SIGN_LEFT_Pin|SIGN_RIGHT_Pin|BRAKE_Pin|BACK_LIGHT_Pin
-                          |FRONT_LIGHT_Pin|CAMERA_Pin|HORN_Pin;
+                          |FRONT_LIGHT_Pin|HORN_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;

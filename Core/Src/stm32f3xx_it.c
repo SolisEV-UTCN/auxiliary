@@ -76,10 +76,8 @@ Auxiliary offline = { .state = 0x00 };
 Auxiliary *aux_offline = &offline;
 
 //for signals synchronization
-bool toggle_sign_left, toggle_sign_right = OFF;
 bool aux_offline_switch = OFF;
 //for counting up to 500ms = 10 to blink
-uint8_t sign_left_500ms = 0, sign_right_500ms = 0;
 //adc value
 uint16_t adc_value = 0;
 
@@ -247,9 +245,9 @@ void USB_LP_CAN_RX0_IRQHandler(void)
 	CAN_RxHeaderTypeDef RxHeader;
 	uint8_t RxData[1];
 
-	  /* USER CODE END USB_LP_CAN_RX0_IRQn 0 */
-	  HAL_CAN_IRQHandler(&hcan);
-	  /* USER CODE BEGIN USB_LP_CAN_RX0_IRQn 1 */
+  /* USER CODE END USB_LP_CAN_RX0_IRQn 0 */
+  HAL_CAN_IRQHandler(&hcan);
+  /* USER CODE BEGIN USB_LP_CAN_RX0_IRQn 1 */
 
 	//get message from CAN, sent by DASHBOARD
 	HAL_CAN_GetRxMessage(&hcan, CAN_RX_FIFO0, &RxHeader, RxData);
@@ -267,8 +265,6 @@ void USB_LP_CAN_RX0_IRQHandler(void)
 /**
   * @brief This function handles TIM2 global interrupt.
   */
-
-//56ms
 void TIM2_IRQHandler(void)
 {
   /* USER CODE BEGIN TIM2_IRQn 0 */
@@ -285,8 +281,7 @@ void TIM2_IRQHandler(void)
 		aux_pointer->state = SAFE_STATE;
 	} else if (aux_offline_switch == ON) {
 		Update_Offline_Mode(aux_offline);
-		Update_Auxiliary_System(aux_offline, toggle_sign_left,
-				toggle_sign_right, sign_left_500ms, sign_right_500ms);
+		Update_Auxiliary_System(aux_offline);
 	}
 
   /* USER CODE END TIM2_IRQn 1 */
@@ -295,8 +290,6 @@ void TIM2_IRQHandler(void)
 /**
   * @brief This function handles TIM3 global interrupt.
   */
-
-//76ms
 void TIM3_IRQHandler(void)
 {
   /* USER CODE BEGIN TIM3_IRQn 0 */
@@ -305,12 +298,7 @@ void TIM3_IRQHandler(void)
   HAL_TIM_IRQHandler(&htim3);
   /* USER CODE BEGIN TIM3_IRQn 1 */
 
-	Update_Auxiliary_System(aux_pointer, toggle_sign_left, toggle_sign_right,
-			sign_left_500ms, sign_right_500ms);
-
-	//Check if Auxiliary works just as planned
-	Get_ADC_Value(hadc4, aux_pointer, toggle_sign_left, toggle_sign_right,
-			adc_value, aux_activity);
+	Update_Auxiliary_System(aux_pointer);
 
 	//Transmit Activity Check CAN frame
 	Send_Auxiliary_State_CAN(hcan, aux_activity);

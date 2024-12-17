@@ -23,10 +23,10 @@ typedef union {
 	struct {
 		uint8_t sign_left :1;
 		uint8_t sign_right :1;
-		uint8_t fan :1;
+		uint8_t safe_state :1;
 		uint8_t brake :1;
 		uint8_t horn :1;
-		uint8_t hazard_lights :1;
+		uint8_t rear_lights:1;
 		uint8_t camera :1;
 		uint8_t lights :1;
 	};
@@ -47,9 +47,7 @@ typedef enum {
 	OFF = 0, ON = 1
 } bool;
 
-void Update_Auxiliary_System(Auxiliary *aux_pointer, bool toggle_sign_left,
-		bool toggle_sign_right, uint8_t sign_left_500ms,
-		uint8_t sign_right_500ms);
+void Update_Auxiliary_System(Auxiliary *aux_pointer);
 
 void Get_ADC_Value(ADC_HandleTypeDef hadc4, Auxiliary *aux_pointer,
 		bool toggle_sign_left, bool toggle_sign_right, uint32_t adc_value,

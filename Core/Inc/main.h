@@ -57,8 +57,10 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define FAN_Pin GPIO_PIN_7
-#define FAN_GPIO_Port GPIOA
+#define CAMERA_Pin GPIO_PIN_6
+#define CAMERA_GPIO_Port GPIOA
+#define SAFE_STATE_Pin GPIO_PIN_7
+#define SAFE_STATE_GPIO_Port GPIOA
 #define SIGN_LEFT_Pin GPIO_PIN_0
 #define SIGN_LEFT_GPIO_Port GPIOB
 #define SIGN_RIGHT_Pin GPIO_PIN_1
@@ -69,8 +71,6 @@ void Error_Handler(void);
 #define BACK_LIGHT_GPIO_Port GPIOB
 #define FRONT_LIGHT_Pin GPIO_PIN_11
 #define FRONT_LIGHT_GPIO_Port GPIOB
-#define CAMERA_Pin GPIO_PIN_12
-#define CAMERA_GPIO_Port GPIOB
 #define HORN_Pin GPIO_PIN_13
 #define HORN_GPIO_Port GPIOB
 #define FRONT_LIGHT_OFFLINE_Pin GPIO_PIN_15
