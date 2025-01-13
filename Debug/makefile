@@ -66,8 +66,8 @@ all: main-build
 main-build: SolisEV4_2_Auxiliare_CBT.elf secondary-outputs
 
 # Tool invocations
-SolisEV4_2_Auxiliare_CBT.elf SolisEV4_2_Auxiliare_CBT.map: $(OBJS) $(USER_OBJS) D:\SOLIS\SolisEV4_Auxiliare\SolisEV4_2_Auxiliare_CBT6\STM32F303CBTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "SolisEV4_2_Auxiliare_CBT.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\SOLIS\SolisEV4_Auxiliare\SolisEV4_2_Auxiliare_CBT6\STM32F303CBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SolisEV4_2_Auxiliare_CBT.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+SolisEV4_2_Auxiliare_CBT.elf SolisEV4_2_Auxiliare_CBT.map: $(OBJS) $(USER_OBJS) D:\an3sem1\Solis\Solis_auxiliare_CBT_functional\solis-ev4-v2-auxiliary\STM32F303CBTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "SolisEV4_2_Auxiliare_CBT.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\an3sem1\Solis\Solis_auxiliare_CBT_functional\solis-ev4-v2-auxiliary\STM32F303CBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SolisEV4_2_Auxiliare_CBT.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

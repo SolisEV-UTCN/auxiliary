@@ -1,4 +1,3 @@
 ../Core/Src/functions.c:15:6:Update_Auxiliary_System	12
-../Core/Src/functions.c:84:6:Send_Auxiliary_State_CAN	1
-../Core/Src/functions.c:106:6:Get_ADC_Value	6
-../Core/Src/functions.c:143:6:Update_Offline_Mode	3
+../Core/Src/functions.c:79:6:Send_Auxiliary_State_CAN	1
+../Core/Src/functions.c:95:6:Update_Offline_Mode	3

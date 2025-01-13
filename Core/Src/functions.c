@@ -21,8 +21,7 @@ void Update_Auxiliary_System(Auxiliary *aux_pointer) {
 	 * Set all pins with the negated values from auxiliary structure
 	 * Outputs are negated -> transistors type P
 	 */
-	HAL_GPIO_WritePin(GPIOB, BACK_LIGHT_Pin | FRONT_LIGHT_Pin,
-			(!aux_pointer->lights));
+	HAL_GPIO_WritePin(GPIOB, BACK_LIGHT_Pin,!aux_pointer->rear_lights);
 	HAL_GPIO_WritePin(GPIOB, HORN_Pin, (!aux_pointer->horn));
 //	HAL_GPIO_WritePin(FAN_GPIO_Port, FAN_Pin, (!aux_pointer->fan));
 	HAL_GPIO_WritePin(GPIOA, CAMERA_Pin, (!aux_pointer->camera));
